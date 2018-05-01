@@ -1,6 +1,7 @@
 import numpy as np
 from computeCost import compute_cost
 import matplotlib.pyplot as plt
+import time
 
 
 def gradient_descent(X, y, theta, alpha, iterations):
@@ -9,8 +10,18 @@ def gradient_descent(X, y, theta, alpha, iterations):
     m = len(y)
     cost = np.zeros(iterations)
 
+    plt.ion()
+    fig, ax = plt.subplots()
+
+    xdata, ydata = [], []
+    plot = ax.scatter(0, compute_cost(X, y, theta))
+    plt.xlim(0, iterations)
+    plt.ylim(0, compute_cost(X, y, theta))
+    plt.draw()
 
     for i in range(iterations):
+        xdata.append(i)
+        ydata.append(cost[i])
         error = X*theta.T - y
 
         for j in range(parameters):
@@ -19,8 +30,13 @@ def gradient_descent(X, y, theta, alpha, iterations):
         theta = temp
         cost[i] = compute_cost(X, y, theta)
 
+        xdata.append(i)
+        ydata.append(cost[i])
+        plot.set_offsets(np.c_[xdata, ydata])
+        fig.canvas.draw_idle()
+        plt.pause(0.1)
 
-
+    plt.show()
     return theta, cost
 
 

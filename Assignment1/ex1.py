@@ -15,7 +15,11 @@ y = data[:, 1:2]
 m = len(y)
 
 # plot data
-plt.scatter(X, y, alpha=0.5)
+#plt.ion()
+#plt.show()
+#plt.scatter(X, y, alpha=0.5)
+#plt.draw()
+#plt.pause(0.001)
 
 
 # append a column of ones to X
@@ -37,6 +41,7 @@ theta = np.matrix(np.array([0,0]))
 cost = compute_cost(X, y, theta)
 print(cost)
 
+
 # minimize error
 theta, cost = gradient_descent(X, y, theta, alpha, iterations)
 
@@ -56,23 +61,21 @@ print(predict2)
 x = np.linspace(np.min(X[:, 1]), np.max(X[:, 1]), 100)
 f = theta[0, 0] + (theta[0, 1] * x)
 
-fig, ax = plt.subplots(figsize=(12,8))
-ax.plot(x, f, 'r', label='Prediction')
-ax.scatter([X[:, 1]],[y],label='Training Data')
-ax.legend(loc=2)
-ax.set_xlabel('Population')
-ax.set_ylabel('Profit')
-ax.set_title('Predicted Profit vs. Population Size')
+fig1, ax1 = plt.subplots(figsize=(12,8))
+ax1.plot(x, f, 'r', label='Prediction')
+ax1.scatter([X[:, 1]],[y],label='Training Data')
+ax1.legend(loc=2)
+ax1.set_xlabel('Population')
+ax1.set_ylabel('Profit')
+ax1.set_title('Predicted Profit vs. Population Size')
 
 
-# plotting the cost function
 fig2, ax2 = plt.subplots(figsize=(12,8))
 ax2.plot(np.arange(iterations), cost, 'r')
 ax2.set_xlabel('Iterations')
 ax2.set_ylabel('Cost')
 ax2.set_title('Error vs. Training Epoch')
 plt.show()
-
 
 
 
