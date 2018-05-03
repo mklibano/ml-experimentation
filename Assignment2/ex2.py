@@ -7,6 +7,7 @@ from Assignment2.gradient import gradient
 from Assignment2.plotDecisionBoundary import plot_decision_boundary
 import scipy.optimize as opt
 from Assignment2.predict import predict
+from Assignment2.plot_data import plot_data
 
 
 # load training data
@@ -17,25 +18,9 @@ data = np.loadtxt(path, delimiter=',')
 X = np.matrix(data[:,0:2])
 y = np.matrix(data[:,2:3])
 
-"""
+
 # plotting the data
-positive = np.where(y > 0)[0]
-np.reshape(positive, (len(positive),1))
-pos1 = np.squeeze(np.asarray(X[positive,0]))
-pos2 = np.squeeze(np.asarray(X[positive,1]))
-
-negative = np.where(y < 1)[0]
-np.reshape(negative, (len(negative),1))
-neg1 = np.squeeze(np.asarray(X[negative,0]))
-neg2 = np.squeeze(np.asarray(X[negative,1]))
-
-fig, ax = plt.subplots(figsize=(12,8))
-ax.scatter(pos1, pos2, s=50, c='b', marker='o', label='Admitted')
-ax.scatter(neg1, neg2, s=50, c='r', marker='x', label='Not Admitted')
-ax.legend()
-ax.set_xlabel('Exam 1 Score')
-ax.set_ylabel('Exam 2 Score')
-"""
+plot_data(X,y)
 
 # visualizing the sigmoid function
 z = np.arange(-10,10, step=1)
@@ -81,6 +66,7 @@ prediction = sigmoid(z)
 print('The admission probability for this student is: \n', str(prediction[0,0]))
 
 # Calculate training accuracy
+
 prediction_vector = predict(X,theta)
 comparison_vector = np.equal(prediction_vector, y)
 
